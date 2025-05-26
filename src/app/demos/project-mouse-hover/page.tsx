@@ -1,15 +1,55 @@
-import React from 'react'
-import styles from './page.module.css'
+"use client";
+import React, { useState } from "react";
+import styles from "./page.module.css";
+import Project from "./components/project/Project";
+import Modal from "./components/modal/Modal";
+
+
+const projects = [
+  {
+    title: "C2 Montreal",
+    src: "c2montreal.png",
+    color: "#000000",
+  },
+  {
+    title: "Office Studio",
+    src: "officestudio.png",
+    color: "#8C8C8C",
+  },
+  {
+    title: "Locomotive",
+    src: "locomotive.png",
+    color: "#EFE8D3",
+  },
+  {
+    title: "Silencio",
+    src: "silencio.png",
+    color: "#706D63",
+  },
+];
 
 export default function ProjectMouseHover() {
+  const [modal, setModal] = useState({ active: false, index: 0 });
+
   return (
     <>
-    
-    <div className={styles.view}>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        
-    </div>
+      <div className={styles.view}>
+        <div className={styles.project}>
+          {projects.map((project, idx) => {
+            return (
+              <>
+                <Project
+                  key={idx}
+                  title={project.title}
+                  index={idx}
+                  setModal={setModal}
+                />
+              </>
+            );
+          })}
+        </div>
+      </div>
+      <Modal modal={modal} data={projects}/>
     </>
-
-  )
+  );
 }

@@ -20,6 +20,8 @@ export default function Navbar({ data }: NavbarProps) {
         const slug = e.target.value
         if(slug) {
             router.push(`/demos/${slug}`)
+        } else {
+            router.push('/')
         }
     }
 
@@ -27,8 +29,8 @@ export default function Navbar({ data }: NavbarProps) {
     <div className={styles.navbar}>
       <label htmlFor="demos"></label>
       <select name="" id="demos" onChange={handleChange}>
-        <option value="" disabled selected>
-          -- Select a demo --
+        <option value=""  selected>
+          -- Home --
         </option>
         {data.map((demo, idx) => {
           return (

@@ -4,7 +4,6 @@ import styles from "./page.module.css";
 import Project from "./components/project/Project";
 import Modal from "./components/modal/Modal";
 
-
 const projects = [
   {
     title: "C2 Montreal",
@@ -48,8 +47,8 @@ export default function ProjectMouseHover() {
             );
           })}
         </div>
+        <Modal modal={modal} data={projects} />
       </div>
-      <Modal modal={modal} data={projects}/>
     </>
   );
 }

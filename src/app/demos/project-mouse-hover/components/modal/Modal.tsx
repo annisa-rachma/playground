@@ -35,6 +35,7 @@ const scaleAnimation = {
 export default function Modal({ modal, data }: ModalProps) {
   const { active, index } = modal;
   const container = useRef<HTMLDivElement>(null);
+  const cursor = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const moveContainerX = gsap.quickTo(container.current, "left", {
@@ -45,49 +46,70 @@ export default function Modal({ modal, data }: ModalProps) {
       duration: 0.8,
       ease: "power3",
     });
+    const moveCursorX = gsap.quickTo(cursor.current, "left", {
+      duration: 0.8,
+      ease: "power3",
+    });
+    const moveCursorY = gsap.quickTo(cursor.current, "top", {
+      duration: 0.8,
+      ease: "power3",
+    });
 
-    const handleMouseMove = (e:MouseEvent) => {
-        const { clientX, clientY } = e;
-        moveContainerX(clientX);
-        moveContainerY(clientY);
-    }
+    const handleMouseMove = (e: MouseEvent) => {
+      const { clientX, clientY } = e;
+      moveContainerX(clientX);
+      moveContainerY(clientY);
+      moveCursorX(clientX);
+      moveCursorY(clientY);
+    };
 
     window.addEventListener("mousemove", handleMouseMove);
 
     return () => {
-        window.removeEventListener("mousemove", handleMouseMove)
-    }
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
   }, []);
 
   return (
-    <motion.div
-      ref={container}
-      variants={scaleAnimation}
-      initial={"initial"}
-      animate={active ? "open" : "closed"}
-      className={styles.container}
-    >
-      <div style={{ top: index * -100 + "%" }} className={styles.modalSlider}>
-        {data.map((el, index) => {
-          const { src, color } = el;
-          return (
-            <>
-              <div
-                style={{ backgroundColor: color }}
-                className={styles.modal}
-                key={`${modal}-${index}`}
-              >
-                <Image
-                  src={`/images/project-mouse-hover/${src}`}
-                  alt="modal image"
-                  width={300}
-                  height={0}
-                />
-              </div>
-            </>
-          );
-        })}
-      </div>
-    </motion.div>
+    <>
+      <motion.div
+        ref={container}
+        variants={scaleAnimation}
+        initial={"initial"}
+        animate={active ? "open" : "closed"}
+        className={styles.container}
+      >
+        <div style={{ top: index * -100 + "%" }} className={styles.modalSlider}>
+          {data.map((el, index) => {
+            const { src, color } = el;
+            return (
+              <>
+                <div
+                  style={{ backgroundColor: color }}
+                  className={styles.modal}
+                  key={`${modal}-${index}`}
+                >
+                  <Image
+                    src={`/images/project-mouse-hover/${src}`}
+                    alt="modal image"
+                    width={300}
+                    height={0}
+                  />
+                </div>
+              </>
+            );
+          })}
+        </div>
+      </motion.div>
+      <motion.div
+        ref={cursor}
+        variants={scaleAnimation}
+        initial={"initial"}
+        animate={active ? "open" : "closed"}
+        className={styles.cursor}
+      >
+        <p>View</p>
+      </motion.div>
+    </>
   );
 }

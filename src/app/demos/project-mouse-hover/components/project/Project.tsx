@@ -1,9 +1,13 @@
 import styles from './Project.module.css'
 
+interface ModalState {
+    active: boolean;
+    index: number;
+  }
 interface ProjectProps {
     title: string,
     index: number,
-    setModal: any
+    setModal: React.Dispatch<React.SetStateAction<ModalState>>
 }
 export default function Project({title,  setModal, index} : ProjectProps) {
   return (

@@ -36,14 +36,12 @@ export default function ProjectMouseHover() {
         <div className={styles.project}>
           {projects.map((project, idx) => {
             return (
-              <>
-                <Project
-                  key={idx}
-                  title={project.title}
-                  index={idx}
-                  setModal={setModal}
-                />
-              </>
+              <Project
+                key={`${idx}-${project.title}`}
+                title={project.title}
+                index={idx}
+                setModal={setModal}
+              />
             );
           })}
         </div>

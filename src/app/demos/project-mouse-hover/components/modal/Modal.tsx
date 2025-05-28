@@ -83,20 +83,18 @@ export default function Modal({ modal, data }: ModalProps) {
           {data.map((el, index) => {
             const { src, color } = el;
             return (
-              <>
-                <div
-                  style={{ backgroundColor: color }}
-                  className={styles.modal}
-                  key={`${modal}-${index}`}
-                >
-                  <Image
-                    src={`/images/project-mouse-hover/${src}`}
-                    alt="modal image"
-                    width={300}
-                    height={0}
-                  />
-                </div>
-              </>
+              <div
+                style={{ backgroundColor: color }}
+                className={styles.modal}
+                key={`${modal}-${index}`}
+              >
+                <Image
+                  src={`/images/project-mouse-hover/${src}`}
+                  alt="modal image"
+                  width={300}
+                  height={0}
+                />
+              </div>
             );
           })}
         </div>
